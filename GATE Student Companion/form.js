@@ -14,65 +14,61 @@
     const auth = firebase.auth();
 
     function signUp(){
-        var flagu=true;
         var email = document.getElementById("email");
         var password = document.getElementById("password");
         const promise = auth.createUserWithEmailAndPassword(email.value, password.value);
-        promise.catch(e => alert(e.message));
+        // promise.catch(e => alert(e.message));   
         auth.onAuthStateChanged(function(user){
             if(user){
-                if(flagu==true){
-                    flagu=false;
-                    var email = user.email;
-                    let n;
-                    for(let i=0; i<email.length;i++) {
-                        if (email[i] === "@") 
-                            n=i;
-                    }
-                    alert("Signed Up");
-                    console.log("Signed up successfully");
-                    alert("Welcome to GATE Student Companion Mr./Mrs. "+email.substring(0,n));
-                    window.location.href = 'gate.html';
+                var email = user.email;
+                let n;
+                for(let i=0; i<email.length;i++) {
+                    if (email[i] === "@") 
+                        n=i;
                 }
+                // alert("Signed Up");
+                console.log("Signed up successfully");
+                // alert("Welcome to GATE Student Companion Mr./Mrs. "+email.substring(0,n));
+                window.location.href = 'gate.html';        
             }
-            });
+            else
+                promise.catch(e => alert(e.message));  
+        });           
     }
 
     function signIn(){
-        var flag=true;
         var email = document.getElementById("email");
         var password = document.getElementById("password");
         const promise = auth.signInWithEmailAndPassword(email.value, password.value);
-        promise.catch(e => alert(e.message));
+        // promise.catch(e => alert(e.message));  
         auth.onAuthStateChanged(function(user){
             if(user){
-                if(flag==true){
-                    flag=false;
-                    var email = user.email;
-                    console.log(typeof(email));
-                    let n;
-                    for(let i=0; i<email.length;i++) {
-                        if (email[i] === "@") 
-                            n=i;
-                    }
-                    alert("Signed In");
-                    console.log("Signed in successfully");
-                    alert("Welcome to GATE Student Companion Mr./Mrs. "+email.substring(0,n));
-                    window.location.href = 'gate.html';
+                var email = user.email;
+                let n;
+                for(let i=0; i<email.length;i++) {
+                    if (email[i] === "@") 
+                        n=i;
                 }
+                // alert("Signed In");
+                console.log("Signed in successfully");
+                // alert("Welcome to GATE Student Companion Mr./Mrs. "+email.substring(0,n));
+                window.location.href = 'gate.html';
             }
-            });
+            else
+                promise.catch(e => alert(e.message));  
+        });       
     }
 
     function signOut(){
         auth.signOut();
-        alert("Signed Out")
+        alert("Signed Out Successfully !");
         console.log("Signed out successfully");
         window.location.href = 'index.html';
     }
     
     auth.onAuthStateChanged(function(user){
         if(user){
+            flagu=true;
             var node = document.createElement("LI"); 
             var alreadyIn = " "+user.email+". You're already Signed In. Just click on Sign In or Sign Up to access the resources." ;            
             var textnode = document.createTextNode(alreadyIn);         
@@ -80,6 +76,7 @@
             document.getElementById("cu").appendChild(node);
         }
         else{
+            flagu=false;
             var node = document.createElement("LI");                
             var textnode = document.createTextNode(" none");         
             node.appendChild(textnode);                              
