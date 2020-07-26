@@ -1,3 +1,7 @@
 .alignRight {
     float: right;
 }
+
+.justify {
+    text-align: justify;
+}
